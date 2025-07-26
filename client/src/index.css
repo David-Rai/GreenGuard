@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+* {
+    font-family: "Inter";
+    /* font-family: "TikTok Sans"; */
+    /* font-family: "Roboto"; */
+}
+
+:root {
+    --inter: "inter";
+    --demo: rgba(35, 128, 71, 0.539);
+    --color-random: rgba(35, 128, 71, 0.539);
+}
+
+@layer components {
+    .main {
+        @apply h-screen w-full bg-gray-500
+    }
+
+    .btn1 {
+        @apply h-[35px] w-[80px] rounded-md bg-[#09090B] border-[0.4px] border-[#6e6e6e] text-white
+    }
+
+    .btn2 {
+        @apply h-[35px] w-[80px] rounded-md bg-white border-[0.4px] border-[#6e6e6e] text-black
+    }
+
+    .input {
+        @apply border-[1px] border-gray-700 rounded-md
+    }
+
+    .inputContainer {
+        @apply w-full 
+    }
+}
+
+a {
+    color: rgba(35, 128, 71, 0.539);
+}
