@@ -1,6 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router'
 
 const Nav = () => {
+  const navigate = useNavigate()
+
   return (
     <>
 
@@ -29,8 +32,8 @@ const Nav = () => {
 
           {/* Auth Buttons */}
           <div className="flex gap-4">
-            <button className='btn1'>Login</button>
-            <button className='btn2'>Signup</button>
+            <button className='btn1' onClick={() => navigate('/signin')}>Login</button>
+            <button className='btn2' onClick={() => navigate('/signup')}>Signup</button>
           </div>
         </div>
       </ nav>

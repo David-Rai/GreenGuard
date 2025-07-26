@@ -62,7 +62,7 @@ export default function Report() {
     };
 
     return (
-        <main className="main flex items-center justify-center min-h-screen bg-green-50 p-4 gap-5">
+        <main className="main flex flex-col items-center justify-center min-h-screen bg-green-50 p-4 gap-5">
 
             <div>LOGO</div>
 

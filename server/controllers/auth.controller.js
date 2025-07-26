@@ -7,8 +7,7 @@ const Secret_Key = process.env.SECRET;
 
 //Signup
 export const signup = async (req, res, next) => {
-
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
 
     //checking if email exist or not
     const [rows] = await db.execute("select * from users where email=?", [email]);
@@ -27,14 +26,14 @@ export const signup = async (req, res, next) => {
         }
 
         //inserting into the database
-        const query = "insert into users (name,email,password) values (?,?,?)";
-        const [results] = await db.execute(query, [name, email, hash]);
+        const query = "insert into users (username,email,password) values (?,?,?)";
+        const [results] = await db.execute(query, [username, email, hash]);
 
         //creating the jwt token 
         const payload = {
             email
         };
-        
+
         const token = jwt.sign(payload, Secret_Key);
         res.cookie("token", token, {
             path: "/",
