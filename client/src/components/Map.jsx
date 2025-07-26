@@ -14,25 +14,25 @@ const Map = () => {
 
     //Socket connection
     useEffect(() => {
+
+        getReports()
+
         if (!socket) return
 
         socket.on("connect", () => {
             console.log("connection established")
             console.log(socket.id)
-            getReports()
         })
-
-        //Receiving all the data
-        socket.on("all-reports", (data) => {
-            console.log("All the reports", data)
-            setReports(data)
-        })
-
     }, [socket])
 
     //Getting all the Report details
     const getReports = async () => {
-        socket.emit("get-reports")
+        const res = await fetch('http://localhost:1111/report')
+        const data=await res.json()
+        console.log(data)
+
+        setReports(data)
+
     }
 
     //Handle report
@@ -45,11 +45,11 @@ const Map = () => {
         <main className='main flex'>
 
             {/* SIDE BAR */}
-            <Sidebar handleReport={handleReport}/>
+            <Sidebar handleReport={handleReport} />
 
 
             {/* LEAFLET MAP */}
-            <MapContainer center={[27.7172, 85.3240]} zoom={13} className='h-screen w-full md:w-[80%]'>
+            <MapContainer center={[27.7172, 85.3240]} zoom={7} className='h-screen w-full md:w-[80%]'>
                 <TileLayer
                     url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
@@ -58,6 +58,8 @@ const Map = () => {
                 <Marker position={[27.7172, 85.3240]}>
                     <Popup >
                         Welcome to Kathmandu! 🌏
+                        <a href="youtube.com">youtube</a>
+
                     </Popup>
                 </Marker>
 

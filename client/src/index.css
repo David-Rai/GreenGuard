@@ -7,6 +7,8 @@
 }
 
 :root {
+    --dark-green: #2E7D32;
+    --primary-green: #4CAF50;
     --inter: "inter";
     --demo: rgba(35, 128, 71, 0.539);
     --color-random: rgba(35, 128, 71, 0.539);
@@ -18,11 +20,11 @@
     }
 
     .btn1 {
-        @apply h-[35px] w-[80px] rounded-md bg-[#09090B] border-[0.4px] border-[#6e6e6e] text-white
+        @apply cursor-pointer h-[35px] w-[80px] rounded-md bg-(--dark-green) border-[0.4px] border-[#6e6e6e] text-white
     }
 
     .btn2 {
-        @apply h-[35px] w-[80px] rounded-md bg-white border-[0.4px] border-[#6e6e6e] text-black
+        @apply cursor-pointer h-[35px] w-[80px] rounded-md bg-white border-[0.4px] border-[#4CAF50] text-black
     }
 
     .input {
@@ -30,7 +32,7 @@
     }
 
     .inputContainer {
-        @apply w-full 
+        @apply w-full
     }
 }
 

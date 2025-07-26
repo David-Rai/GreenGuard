@@ -5,7 +5,7 @@ const Nav = () => {
     <>
 
       {/* Navigation */}
-      < nav className="w-full px-6 py-4 border-b border-[#1B1B1D] bg-[#09090B]" >
+      < nav className="w-full px-6 py-4 border-b border-[#113326] " >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className='flex items-center justify-between gap-[100px]'>
             {/* Logo */}
