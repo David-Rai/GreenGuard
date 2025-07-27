@@ -28,7 +28,7 @@ const Map = () => {
     //Getting all the Report details
     const getReports = async () => {
         const res = await fetch('http://localhost:1111/report')
-        const data=await res.json()
+        const data = await res.json()
         console.log(data)
 
         setReports(data)
@@ -38,6 +38,13 @@ const Map = () => {
     //Handle report
     const handleReport = () => {
         navigate('/report')
+
+    }
+
+    //Handling the report deatils
+    const handleReportDetails = (report) => {
+        console.log(report)
+        navigate('/report-details', { state: { report } });
 
     }
 
@@ -71,6 +78,7 @@ const Map = () => {
                             {report.description}<br />
                             📞 {report.contact_number}<br />
                             🕒 {new Date(report.created_at).toLocaleString()}
+                            <button onClick={()=> handleReportDetails(report)} className='btn1'>View deatails</button>
                         </Popup>
                     </Marker>
                 ))}

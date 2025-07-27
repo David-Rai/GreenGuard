@@ -10,6 +10,7 @@ import Signup from './components/auth/Signup'
 import Signin from './components/auth/Signin'
 import Map from './components/Map'
 import Report from './components/Report'
+import ReportDetails from './components/ReportDetails'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/report",
     element: <Report />
+  },
+  {
+    path: "/report-details",
+    element: <ReportDetails />
   }
 ])
 
