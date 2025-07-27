@@ -58,8 +58,6 @@ const Map = () => {
                 <Marker position={[27.7172, 85.3240]}>
                     <Popup >
                         Welcome to Kathmandu! 🌏
-                        <a href="youtube.com">youtube</a>
-
                     </Popup>
                 </Marker>
 
