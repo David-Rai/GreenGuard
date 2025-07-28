@@ -18,6 +18,8 @@ const Signin = () => {
     try {
       const res = await axios.post('http://localhost:1111/signin', {
         ...data
+      }, {
+        withCredentials: true
       })
       console.log(res)
 
@@ -78,6 +80,10 @@ const Signin = () => {
         >
           Sign In
         </button>
+
+        <div>have a account ?
+          <button onClick={() => navigate('/signup')}>signup</button>
+        </div>
       </form>
     </main>
   );

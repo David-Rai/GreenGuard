@@ -1,6 +1,7 @@
 import express from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { nanoid } from 'nanoid'
 import db from '../model/db_local.js'
 
 const Secret_Key = process.env.SECRET;
@@ -26,8 +27,9 @@ export const signup = async (req, res, next) => {
         }
 
         //inserting into the database
+        const new_username=`${username}-${nanoid()}`
         const query = "insert into users (username,email,password) values (?,?,?)";
-        const [results] = await db.execute(query, [username, email, hash]);
+        const [results] = await db.execute(query, [new_username, email, hash]);
 
         //creating the jwt token 
         const payload = {
@@ -36,9 +38,9 @@ export const signup = async (req, res, next) => {
 
         const token = jwt.sign(payload, Secret_Key);
         res.cookie("token", token, {
-            path: "/",
-            sameSite: "lax",
-            httpOnly: true,
+            // path: "/",
+            // sameSite: "lax",
+            // httpOnly: true,
         });
 
         //Returning the response object
@@ -75,14 +77,14 @@ export const signin = async (req, res, next) => {
             const token = jwt.sign(payload, Secret_Key);
 
             res.cookie("token", token, {
-                path: "/",
-                sameSite: "lax",
-                httpOnly: true,
-                // secure:false
+                // path: "/",
+                // sameSite: "lax",
+                // httpOnly: true,
             });
 
             //Response
             res.json({
+                token,
                 success: true,
                 message: "login successfully",
             });

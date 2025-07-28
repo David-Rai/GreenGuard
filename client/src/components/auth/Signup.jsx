@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form';
 
 export default function Signup() {
-const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -18,7 +18,9 @@ const navigate=useNavigate()
     // Simulate API call
     try {
       const res = await axios.post('http://localhost:1111/signup', {
-       ...data
+        ...data
+      }, {
+        withCredentials: true
       })
       console.log(res)
       if (res.data.status) {
@@ -99,6 +101,10 @@ const navigate=useNavigate()
         >
           {isSubmitting ? 'Signing up...' : 'Sign Up'}
         </button>
+
+        <div>have a account ?
+          <button onClick={() => navigate('/signin')}>Login</button>
+        </div>
       </form>
     </div>
   );
