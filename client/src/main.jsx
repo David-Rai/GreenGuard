@@ -12,6 +12,8 @@ import Map from './components/Map'
 import Profile from './components/Profile'
 import Report from './components/Report'
 import ReportDetails from './components/ReportDetails'
+import User_Reports from './components/User_Reports'
+import Saved_Reports from './components/Saved_Reports'
 
 const router = createBrowserRouter([
   {
@@ -38,10 +40,22 @@ const router = createBrowserRouter([
   {
     path: "/report-details",
     element: <ReportDetails />
-  }  ,
+  },
   {
     path: "/profile/:username",
-    element: <Profile />
+    element: <Profile />,
+    children: [
+      {
+        index: true,
+        element: <User_Reports />
+      }, {
+        path: 'user_reports',
+        element: <User_Reports />
+      }, {
+        path: "saved_reports",
+        element: <Saved_Reports />
+      }
+    ]
   }
 ])
 
