@@ -18,7 +18,8 @@ const navigate=useNavigate()
 
   return (
     <div className="absolute md:static z-20 bottom-0 left-0  flex flex-row h-[60px]
-      md:flex w-full md:w-[20%] bg-green-900  text-white md:h-full md:flex-col items-center gap-6 py-6  px-2">
+      md:flex w-full md:w-[20%] bg-green-900 
+       text-white md:h-full md:flex-col items-center gap-6 md:py-6  md:px-2">
       {/* Logo */}
       <h1 className="hidden md:flex text-3xl font-extrabold tracking-wide">EcoLOGO</h1>
 

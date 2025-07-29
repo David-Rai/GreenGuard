@@ -9,6 +9,7 @@ import Home from './components/Home'
 import Signup from './components/auth/Signup'
 import Signin from './components/auth/Signin'
 import Map from './components/Map'
+import Profile from './components/Profile'
 import Report from './components/Report'
 import ReportDetails from './components/ReportDetails'
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/report-details",
     element: <ReportDetails />
+  }  ,
+  {
+    path: "/profile/:username",
+    element: <Profile />
   }
 ])
 
