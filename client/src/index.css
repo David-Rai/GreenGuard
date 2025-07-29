@@ -34,6 +34,18 @@
     .inputContainer {
         @apply w-full
     }
+
+    .option-icon{
+        @apply text-2xl
+    }
+    .icon-detail{
+        @apply hidden md:flex
+    }
+    .option-button{
+        @apply flex items-center gap-3 px-4 py-2
+        w-full
+         hover:bg-green-800 rounded-md transition duration-200
+    }
 }
 
 a {
