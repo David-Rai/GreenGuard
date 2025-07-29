@@ -11,38 +11,39 @@ import { useNavigate } from "react-router";
 
 const Sidebar = ({ handleReport }) => {
   return (
-    <div className="hidden md:flex w-[20%] bg-green-900 text-white h-full flex-col items-center gap-6 py-6">
+    <div className="absolute md:static z-20 bottom-0 left-0  flex flex-row h-[60px]
+      md:flex w-full md:w-[20%] bg-green-900  text-white md:h-full md:flex-col items-center gap-6 py-6">
       {/* Logo */}
-      <h1 className="text-3xl font-extrabold tracking-wide">EcoLOGO</h1>
+      {/* <h1 className="text-3xl font-extrabold tracking-wide">EcoLOGO</h1> */}
 
       {/* Options */}
-      <div className="options bg-green-700 w-full flex flex-col gap-4 p-5 h-[80%] rounded-lg shadow-lg">
+      <div className="options h-[60px] items-center justify-center flex-row bg-green-700 w-full flex md:flex-col gap-4 md:p-5 md:h-[80%] md:rounded-lg shadow-lg">
         <button className="flex items-center gap-3 px-4 py-2 hover:bg-green-800 rounded-md transition duration-200">
           <FaUser />
-          Your Profile
+          {/* Your Profile */}
         </button>
         <button className="flex items-center gap-3 px-4 py-2 hover:bg-green-800 rounded-md transition duration-200">
           <FaBookmark />
-          Saved
+          {/* Saved */}
         </button>
         <button className="flex items-center gap-3 px-4 py-2 hover:bg-green-800 rounded-md transition duration-200">
           <FaLeaf />
-          Your Reports
+          {/* Your Reports */}
         </button>
         <button className="flex items-center gap-3 px-4 py-2 hover:bg-green-800 rounded-md transition duration-200">
           <FaRecycle />
-          Latest Reports
+          {/* Latest Reports */}
         </button>
       </div>
 
       {/* Report Button */}
-      <button
+      {/* <button
         onClick={handleReport}
         className="mt-auto mb-6 w-[90%] bg-green-400 text-green-900 font-semibold py-3 px-6 rounded-lg hover:bg-green-300 transition duration-200 flex items-center justify-center gap-3 shadow-md"
       >
         <FaExclamationCircle />
         REPORT
-      </button>
+      </button> */}
     </div>
   );
 };

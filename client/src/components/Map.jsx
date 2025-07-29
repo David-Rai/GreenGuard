@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import Sidebar from './Sidebar'
+import { verify } from '../utils/verify'
 import 'leaflet/dist/leaflet.css'
 import { useNavigate } from 'react-router'
 import { useSocket } from '../socket/SocketContext'
@@ -25,6 +26,12 @@ const Map = () => {
         })
     }, [socket])
 
+    //Checking the user validation
+    useEffect(() => {
+
+        verify()
+    }, [])
+
     //Getting all the Report details
     const getReports = async () => {
         const res = await fetch('http://localhost:1111/report')
@@ -49,14 +56,14 @@ const Map = () => {
     }
 
     return (
-        <main className='main flex'>
+        <main className='main flex flex-row'>
 
             {/* SIDE BAR */}
             <Sidebar handleReport={handleReport} />
 
 
             {/* LEAFLET MAP */}
-            <MapContainer center={[27.7172, 85.3240]} zoom={7} className='h-screen w-full md:w-[80%]'>
+            <MapContainer center={[27.7172, 85.3240]} zoom={7}  className='w-full md:w-[80%]  md:h-screen h-[calc(100%-60px)]'>
                 <TileLayer
                     url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
@@ -78,7 +85,7 @@ const Map = () => {
                             {report.description}<br />
                             📞 {report.contact_number}<br />
                             🕒 {new Date(report.created_at).toLocaleString()}
-                            <button onClick={()=> handleReportDetails(report)} className='btn1'>View deatails</button>
+                            <button onClick={() => handleReportDetails(report)} className='btn1'>View deatails</button>
                         </Popup>
                     </Marker>
                 ))}
