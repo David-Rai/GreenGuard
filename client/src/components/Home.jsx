@@ -2,6 +2,8 @@ import { useSocket } from '../socket/SocketContext';
 import React, { useState, useEffect } from 'react';
 import Nav from './Nav'
 import { ToastContainer } from 'react-toastify';
+import About from './About';
+import Footer from './Footer'
 import Feature from './Feature';
 import { useNavigate } from 'react-router';
 
@@ -51,6 +53,8 @@ const Home = () => {
       </main>
 
       <Feature />
+      <About />
+      <Footer />
       <ToastContainer />
     </>
   );

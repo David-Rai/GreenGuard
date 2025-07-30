@@ -63,8 +63,8 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <SocketProvider>
     <UserProvider>
-      <RouterProvider router={router}>
-      </RouterProvider>
+    <RouterProvider router={router}>
+    </RouterProvider>
     </UserProvider>
   </SocketProvider>
 
