@@ -12,9 +12,26 @@ export const handleSocket = (io) => {
         const cookies = cookie.parse(cookieString);
 
         const { token } = cookies
-        // console.log(token)
+        //Getting the decoded jwt
+        const Secret_Key = process.env.SECRET
+        const decoded = jwt.verify(token, Secret_Key)
+
 
         console.log(client.id)
+
+        //Saved_report of users
+        client.on('save-report', async ({ report_id }) => {
+            // console.log(decoded)
+            const { user_id } = decoded
+
+            //Storing on database
+            const q = 'insert into saved_reports (user_id,report_id) values (?,?)'
+            const [result] = await db.execute(q, [user_id, report_id])
+
+            console.log(result)
+
+            client.emit("saved-report")
+        })
 
         //Getting all the reports
         client.on('get-reports', async () => {
@@ -32,13 +49,7 @@ export const handleSocket = (io) => {
             console.log("new report", data)
 
             try {
-
-                //Getting the decoded jwt
-                const Secret_Key = process.env.SECRET
-                const decoded = jwt.verify(token, Secret_Key)
-
                 const { username } = decoded
-
 
                 const { contact_number, purpose, description, lat, lng } = data
 

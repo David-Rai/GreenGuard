@@ -8,11 +8,12 @@ import { useSocket } from '../socket/SocketContext'
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 
+
 const Map = () => {
     const navigate = useNavigate()
     const socket = useSocket()
     const [reports, setReports] = useState([])
-    const user=useUser()
+    const user = useUser()
 
     //Socket connection
     useEffect(() => {
@@ -85,11 +86,31 @@ const Map = () => {
                         position={[parseFloat(report.lat), parseFloat(report.lng)]}
                     >
                         <Popup>
-                            <strong>{report.purpose}</strong><br />
-                            {report.description}<br />
-                            📞 {report.contact_number}<br />
-                            🕒 {new Date(report.created_at).toLocaleString()}
-                            <button onClick={() => handleReportDetails(report)} className='btn1'>View deatails</button>
+                            <div style={{ minWidth: '200px' }}>
+                                <strong>{report.purpose}</strong>
+                                <p style={{ margin: '0.25em 0' }}>{report.description}</p>
+                                <p style={{ margin: '0.25em 0' }}>
+                                    📞 <a href={`tel:${report.contact_number}`}>{report.contact_number}</a>
+                                </p>
+                                <p style={{ margin: '0.25em 0', fontSize: '0.85em', color: '#555' }}>
+                                    🕒 {new Date(report.created_at).toLocaleString()}
+                                </p>
+                                <button
+                                    onClick={() => handleReportDetails(report)}
+                                    style={{
+                                        marginTop: '0.5em',
+                                        padding: '0.4em 0.75em',
+                                        backgroundColor: '#2ecc71',
+                                        border: 'none',
+                                        color: 'white',
+                                        cursor: 'pointer',
+                                        borderRadius: '4px',
+                                        width: '100%',
+                                    }}
+                                >
+                                    View details
+                                </button>
+                            </div>
                         </Popup>
                     </Marker>
                 ))}

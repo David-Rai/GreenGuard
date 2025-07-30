@@ -9,7 +9,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const res = await axios(`http://localhost:1111/profile/${username}`);
-      console.log(res.data);
+      // console.log(res.data);
       setUserData(res.data);
     };
 

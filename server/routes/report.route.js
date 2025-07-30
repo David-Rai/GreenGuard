@@ -17,19 +17,35 @@ reportRouter.get('/report', async (req, res) => {
 })
 
 //For getting specific user reports
-reportRouter.get('/reports', async (req, res) => {
-    console.log("on reporting route")
-    const { token } = req.cookies
-    console.log(token)
-    const decoded = jwt.verify(token, process.env.SECRET)
-    const { username } = decoded
-    console.log(decoded)
+reportRouter.post('/reports', async (req, res) => {
+    const { username } = req.body
 
-    console.log("getting reports", username)
+    // const { token } = req.cookies
+    // const decoded = jwt.verify(token, process.env.SECRET)
+    // const { username } = decoded
+
     //Getting from the database
     const q = 'select * from reports where user_id = ?'
     const [results] = await db.execute(q, [username])
 
+    // console.log(results)
+
+    res.json(results)
+})
+
+//For gettign saved reports
+reportRouter.post('/saved-reports', async (req, res) => {
+    console.log("saved reports routes")
+    const { user_id } = req.body
+    console.log(user_id)
+
+    const query = `
+    SELECT r.*
+    FROM saved_reports sr
+    JOIN reports r ON sr.report_id = r.id
+    WHERE sr.user_id = ?
+  `;
+    const [results] = await db.execute(query, [user_id]);
     console.log(results)
 
     res.json(results)

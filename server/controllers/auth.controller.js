@@ -33,6 +33,7 @@ export const signup = async (req, res, next) => {
 
         //creating the jwt token 
         const payload = {
+            user_id: rows[0].id,
             email,
             username: new_username
         };
@@ -75,6 +76,7 @@ export const signin = async (req, res, next) => {
         if (result) {
             const payload = {
                 email,
+                user_id: rows[0].id,
                 username: rows[0].username
             };
             const token = jwt.sign(payload, Secret_Key);

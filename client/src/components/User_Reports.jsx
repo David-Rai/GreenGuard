@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { FaRegThumbsUp, FaRegCommentDots, FaShare } from "react-icons/fa";
+import { useUser } from '../socket/UserContext'
+import axios from 'axios'
 
 const User_Reports = () => {
   const [reports, setReports] = useState([])
+  const user = useUser()
+  console.log(user)
 
-  //Getting the user reports
   useEffect(() => {
     const getReports = async () => {
+      if (!user?.username) return; // Wait until user is available
+  
       try {
-        const res = await fetch("http://localhost:1111/reports", {
-          credentials: 'include', // ✅ Correct way to send cookies
+        const res = await axios.post("http://localhost:1111/reports", {
+          username: user.username
         });
-
-        const data = await res.json(); // ✅ Parse JSON body
-        console.log("reports", data);
-
-        setReports(data)
+  
+        console.log("reports", res.data);
+        setReports(res.data);
       } catch (err) {
         console.error("Error fetching reports", err);
       }
     };
-
+  
     getReports();
-  }, []); // ✅ Add empty dependency array so it only runs once
+  }, [user]); // Depend on user so it re-runs when user is ready
+  
 
   return (
     <main className="flex flex-col items-center p-4 bg-gray-100 min-h-screen">
@@ -49,14 +53,14 @@ const User_Reports = () => {
 
               {/* Image Section */}
               {/* {r.image && ( */}
-                <div className="mb-3">
-                  <img
-                    // src={r.image}
-                    src='https://thispersondoesnotexist.com'
-                    alt="Report Image"
-                    className="w-full rounded-lg max-h-[400px] object-cover"
-                  />
-                </div>
+              <div className="mb-3">
+                <img
+                  // src={r.image}
+                  src='https://thispersondoesnotexist.com'
+                  alt="Report Image"
+                  className="w-full rounded-lg max-h-[400px] object-cover"
+                />
+              </div>
               {/* )} */}
 
               {/* Location and Contact */}
