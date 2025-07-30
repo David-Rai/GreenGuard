@@ -44,7 +44,7 @@ const Saved_Reports = () => {
               {/* Header */}
               <div className="flex items-center justify-between text-sm text-gray-500 mb-2">
                 <p className="font-semibold text-black">{r.user_id}</p>
-                <p>{new Date(r.created_at).toLocaleString()}</p>
+                <p className='hidden md:flex'>{new Date(r.created_at).toLocaleString()}</p>
               </div>
 
               {/* Content */}

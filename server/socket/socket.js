@@ -21,17 +21,27 @@ export const handleSocket = (io) => {
 
         //Saved_report of users
         client.on('save-report', async ({ report_id }) => {
-            // console.log(decoded)
-            const { user_id } = decoded
-
-            //Storing on database
-            const q = 'insert into saved_reports (user_id,report_id) values (?,?)'
-            const [result] = await db.execute(q, [user_id, report_id])
-
-            console.log(result)
-
-            client.emit("saved-report")
-        })
+            try {
+                const { user_id } = decoded;
+        
+                const q = 'INSERT INTO saved_reports (user_id, report_id) VALUES (?, ?)';
+                const [result] = await db.execute(q, [user_id, report_id]);
+        
+                console.log(result);
+                client.emit("saved-report");
+            } catch (error) {
+                if (error.code === 'ER_DUP_ENTRY') {
+                    // Duplicate entry error, handle it gracefully
+                    console.log('Report already saved by this user');
+                    client.emit('error', { message: 'You have already saved this report.' });
+                } else {
+                    // Other unexpected errors
+                    console.error('Database error:', error);
+                    client.emit('error', { message: 'An unexpected error occurred.' });
+                }
+            }
+        });
+        
 
         //Getting all the reports
         client.on('get-reports', async () => {
