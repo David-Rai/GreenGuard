@@ -50,7 +50,7 @@ const Map = () => {
     const getReports = async () => {
         const res = await fetch('http://localhost:1111/report')
         const data = await res.json()
-        setReports("Reports",data)
+        setReports(data)
 
     }
 
