@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios'
+import { verify } from '../../utils/verify';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
 const Signin = () => {
   const navigate = useNavigate()
@@ -11,6 +13,21 @@ const Signin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  // //Checking the user validation
+  useEffect(() => {
+    const check = async () => {
+      const res = await verify()
+      console.log(res)
+
+      if (res?.user) {
+        console.log("failed", res)
+        navigate('/map')
+      }
+    }
+
+    check()
+  }, [])
 
   const onSubmit = async (data) => {
     console.log('Signin data:', data);
@@ -33,19 +50,27 @@ const Signin = () => {
   };
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-green-50">
+    <main className="flex items-center justify-center min-h-screen bg-[#F9FAF8] px-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white shadow-lg rounded-xl p-6 w-full max-w-sm"
+        className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md"
+        noValidate
       >
-        <h2 className="text-2xl font-bold text-center text-green-700 mb-6">Sign In</h2>
+        <h2 className="text-3xl font-bold text-center text-[#2ecc71] mb-8">
+          Sign In
+        </h2>
 
         {/* Email */}
-        <div className="mb-4">
-          <label className="block mb-1 text-sm font-medium">Email</label>
+        <div className="mb-6">
+          <label htmlFor="email" className="block mb-2 text-sm font-semibold text-gray-700">
+            Email
+          </label>
           <input
+            id="email"
             type="email"
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            placeholder="you@example.com"
+            className={`w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2ecc71] ${errors.email ? 'border-red-500' : 'border-gray-300'
+              }`}
             {...register('email', {
               required: 'Email is required',
               pattern: {
@@ -54,15 +79,22 @@ const Signin = () => {
               },
             })}
           />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+          {errors.email && (
+            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+          )}
         </div>
 
         {/* Password */}
-        <div className="mb-6">
-          <label className="block mb-1 text-sm font-medium">Password</label>
+        <div className="mb-8">
+          <label htmlFor="password" className="block mb-2 text-sm font-semibold text-gray-700">
+            Password
+          </label>
           <input
+            id="password"
             type="password"
-            className="w-full border border-gray-300 rounded px-3 py-2"
+            placeholder="Your password"
+            className={`w-full border rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2ecc71] ${errors.password ? 'border-red-500' : 'border-gray-300'
+              }`}
             {...register('password', {
               required: 'Password is required',
               minLength: {
@@ -71,21 +103,33 @@ const Signin = () => {
               },
             })}
           />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+          {errors.password && (
+            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+          )}
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+          className="w-full bg-[#2ecc71] text-white py-3 rounded-lg font-semibold hover:bg-[#27ae60] transition-colors"
         >
           Sign In
         </button>
 
-        <div>have a account ?
-          <button onClick={() => navigate('/signup')}>signup</button>
-        </div>
+        {/* Signup prompt */}
+        <p className="mt-6 text-center text-gray-600">
+          Don&apos;t have an account?{' '}
+          <button
+            type="button"
+            onClick={() => navigate('/signup')}
+            className="text-[#2ecc71] font-semibold hover:underline"
+          >
+            Sign up
+          </button>
+        </p>
       </form>
     </main>
+
   );
 };
 

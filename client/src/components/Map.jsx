@@ -1,9 +1,10 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import Sidebar from './Sidebar'
-// import { verify } from '../utils/verify'
+import { verify } from '../utils/verify'
 import { useUser } from '../socket/UserContext'
 import 'leaflet/dist/leaflet.css'
 import { useNavigate } from 'react-router'
+import axios from 'axios'
 import { useSocket } from '../socket/SocketContext'
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
@@ -14,6 +15,22 @@ const Map = () => {
     const socket = useSocket()
     const [reports, setReports] = useState([])
     const user = useUser()
+
+    
+    // //Checking the user validation
+    useEffect(() => {
+        const check = async () => {
+            const res = await verify()
+            console.log(res)
+
+            if (!res.success) {
+                console.log("failed",res)
+                navigate('/signin')
+            }
+        }
+
+        check()
+    }, [])
 
     //Socket connection
     useEffect(() => {
@@ -28,22 +45,12 @@ const Map = () => {
         })
     }, [socket])
 
-    // //Checking the user validation
-    // useEffect(() => {
-    //    const verrification=async ()=>{
-    //     const data = await verify()
-    //     console.log("This user data",data.user)
-    //     setUser(data.user)
-    //    }
-    //    verrification()
-    // }, [])
-
 
     //Getting all the Report details
     const getReports = async () => {
         const res = await fetch('http://localhost:1111/report')
         const data = await res.json()
-        console.log("Reports got", data)
+        // console.log("Reports got", data)
         setReports(data)
 
     }

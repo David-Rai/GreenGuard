@@ -8,7 +8,7 @@ const Nav = () => {
     <>
 
       {/* Navigation */}
-      < nav className="w-full px-6 py-4 border-b border-[#113326] " >
+      < nav className="w-full px-6 py-4 border-b border-[#a3aca8] " >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className='flex items-center justify-between gap-[100px]'>
             {/* Logo */}
@@ -20,7 +20,7 @@ const Nav = () => {
                 Features
               </li>
               <li>
-                Pricing
+                Map
               </li>
               <li>
                 About
