@@ -27,17 +27,19 @@ export const signup = async (req, res, next) => {
         }
 
         //inserting into the database
-        const new_username=`${username}-${nanoid()}`
+        const new_username = `${username}-${nanoid()}`
         const query = "insert into users (username,email,password) values (?,?,?)";
         const [results] = await db.execute(query, [new_username, email, hash]);
 
         //creating the jwt token 
         const payload = {
-            email
+            email,
+            username: new_username
         };
 
         const token = jwt.sign(payload, Secret_Key);
         res.cookie("token", token, {
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
             // path: "/",
             // sameSite: "lax",
             // httpOnly: true,
@@ -72,11 +74,13 @@ export const signin = async (req, res, next) => {
 
         if (result) {
             const payload = {
-                email
+                email,
+                username: rows[0].username
             };
             const token = jwt.sign(payload, Secret_Key);
 
             res.cookie("token", token, {
+                maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
                 // path: "/",
                 // sameSite: "lax",
                 // httpOnly: true,

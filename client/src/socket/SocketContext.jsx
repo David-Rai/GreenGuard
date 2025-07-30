@@ -11,7 +11,9 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:1111'); // Your backend URL here
+        const newSocket = io('http://localhost:1111',{
+            withCredentials:true
+        }); // Your backend URL here
         setSocket(newSocket);
 
         return () => {

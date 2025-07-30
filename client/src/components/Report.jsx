@@ -36,7 +36,7 @@ export default function Report() {
             const { lat, lng } = coordRef.current;
 
             // emitting the data
-            socket.emit("new-report", { ...data, lat, lng });
+             socket.emit("new-report", { ...data, lat, lng });
         } else {
             console.error("Coordinates not available");
         }

@@ -1,9 +1,17 @@
-
-//checking the jwt token validation
 export const verify = async () => {
-    const res = await fetch("http://localhost:1111/verify", {
-        credentials: 'include'
-    })
-    const data = await res.json()
-    console.log(data)
+    try {
+        const res = await fetch("http://localhost:1111/verify", {
+            credentials: 'include'
+        });
+
+        if (!res.ok) {
+            throw new Error('Unauthorized or verification failed');
+        }
+
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error('JWT verification failed:', error.message);
+        return { success: false, message: error.message };
+    }
 }

@@ -10,11 +10,16 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { VscReport } from "react-icons/vsc";
 import { IoHome } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
+import { verify } from '../utils/verify.js'
+import { useEffect } from "react";
+import axios from 'axios'
 import React from 'react'
 import { useNavigate } from "react-router";
 
-const Sidebar = ({ handleReport }) => {
-const navigate=useNavigate()
+const Sidebar = ({ handleReport,user }) => {
+  console.log(user)
+  
+  const navigate = useNavigate()
 
   return (
     <div className="absolute md:static z-20 bottom-0 left-0  flex flex-row h-[60px]
@@ -27,14 +32,16 @@ const navigate=useNavigate()
       <div className="options h-[60px] items-center justify-center flex-row bg-green-700 w-full flex md:flex-col gap-4 md:p-5 md:h-[80%] md:rounded-lg shadow-lg">
         {/* Home  */}
         <button className="option-button"
-        onClick={()=> navigate('/')}
+          onClick={() => navigate('/')}
         >
           <IoHome className="option-icon" />
           <h1 className="hidden md:flex">Home</h1>
         </button>
 
         {/* Your Profile */}
-        <button className="option-button">
+        <button
+          onClick={() => navigate(`/profile/${user.username}`)}
+          className="option-button">
           <CgProfile className="option-icon" />
           <h1 className="hidden md:flex">Profile</h1>
         </button>

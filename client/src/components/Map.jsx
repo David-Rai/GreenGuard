@@ -11,7 +11,7 @@ const Map = () => {
     const navigate = useNavigate()
     const socket = useSocket()
     const [reports, setReports] = useState([])
-
+    const [user,setUser]=useState(null)
 
     //Socket connection
     useEffect(() => {
@@ -22,22 +22,25 @@ const Map = () => {
 
         socket.on("connect", () => {
             console.log("connection established")
-            console.log(socket.id)
+            // console.log(socket.id)
         })
     }, [socket])
 
     //Checking the user validation
     useEffect(() => {
-
-        verify()
+       const verrification=async ()=>{
+        const data = await verify()
+        console.log("This user data",data.user)
+        setUser(data.user)
+       }
+       verrification()
     }, [])
 
     //Getting all the Report details
     const getReports = async () => {
         const res = await fetch('http://localhost:1111/report')
         const data = await res.json()
-        console.log(data)
-
+        console.log("Reports got", data)
         setReports(data)
 
     }
@@ -50,20 +53,19 @@ const Map = () => {
 
     //Handling the report deatils
     const handleReportDetails = (report) => {
-        console.log(report)
+        // console.log(report)
         navigate('/report-details', { state: { report } });
-
     }
 
     return (
         <main className='main flex flex-row'>
 
             {/* SIDE BAR */}
-            <Sidebar handleReport={handleReport} />
+            <Sidebar handleReport={handleReport} user={user} />
 
 
             {/* LEAFLET MAP */}
-            <MapContainer center={[27.7172, 85.3240]} zoom={7}  className='w-full md:w-[80%]  md:h-screen h-[calc(100%-60px)]'>
+            <MapContainer center={[27.7172, 85.3240]} zoom={7} className='w-full md:w-[80%]  md:h-screen h-[calc(100%-60px)]'>
                 <TileLayer
                     url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
