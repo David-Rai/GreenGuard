@@ -6,7 +6,7 @@ import axios from 'axios'
 const User_Reports = () => {
   const [reports, setReports] = useState([])
   const user = useUser()
-  console.log(user)
+  // console.log(user)
 
   useEffect(() => {
     const getReports = async () => {

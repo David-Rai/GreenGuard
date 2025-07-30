@@ -21,10 +21,10 @@ const Map = () => {
     useEffect(() => {
         const check = async () => {
             const res = await verify()
-            console.log(res)
+            console.log("verification",res)
 
             if (!res.success) {
-                console.log("failed",res)
+                console.log("failed verification",res)
                 navigate('/signin')
             }
         }
@@ -50,8 +50,7 @@ const Map = () => {
     const getReports = async () => {
         const res = await fetch('http://localhost:1111/report')
         const data = await res.json()
-        // console.log("Reports got", data)
-        setReports(data)
+        setReports("Reports",data)
 
     }
 
@@ -63,7 +62,6 @@ const Map = () => {
 
     //Handling the report deatils
     const handleReportDetails = (report) => {
-        // console.log(report)
         navigate('/report-details', { state: { report } });
     }
 

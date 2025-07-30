@@ -10,14 +10,12 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 import { VscReport } from "react-icons/vsc";
 import { IoHome } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { verify } from '../utils/verify.js'
 import { useEffect } from "react";
 import axios from 'axios'
 import React from 'react'
 import { useNavigate } from "react-router";
 
 const Sidebar = ({ handleReport,user }) => {
-  console.log(user)
   
   const navigate = useNavigate()
 

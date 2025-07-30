@@ -12,6 +12,10 @@ export const signup = async (req, res, next) => {
 
     //checking if email exist or not
     const [rows] = await db.execute("select * from users where email=?", [email]);
+
+    console.log(rows)
+
+
     if (rows.length > 0) {
         const error = new Error("user existed");
         error.status = 500;
@@ -64,6 +68,8 @@ export const signin = async (req, res, next) => {
     //Getting the actually data 
     const query = "select * from users where email=?";
     const [rows] = await db.execute(query, [email]);
+
+    console.log(rows)
 
     // creating the jwt if valid
     bcrypt.compare(password, rows[0].password, (err, result) => {
