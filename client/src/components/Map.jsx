@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import Sidebar from './Sidebar'
-import { verify } from '../utils/verify'
+// import { verify } from '../utils/verify'
+import { useUser } from '../socket/UserContext'
 import 'leaflet/dist/leaflet.css'
 import { useNavigate } from 'react-router'
 import { useSocket } from '../socket/SocketContext'
@@ -11,7 +12,7 @@ const Map = () => {
     const navigate = useNavigate()
     const socket = useSocket()
     const [reports, setReports] = useState([])
-    const [user,setUser]=useState(null)
+    const user=useUser()
 
     //Socket connection
     useEffect(() => {
@@ -26,15 +27,16 @@ const Map = () => {
         })
     }, [socket])
 
-    //Checking the user validation
-    useEffect(() => {
-       const verrification=async ()=>{
-        const data = await verify()
-        console.log("This user data",data.user)
-        setUser(data.user)
-       }
-       verrification()
-    }, [])
+    // //Checking the user validation
+    // useEffect(() => {
+    //    const verrification=async ()=>{
+    //     const data = await verify()
+    //     console.log("This user data",data.user)
+    //     setUser(data.user)
+    //    }
+    //    verrification()
+    // }, [])
+
 
     //Getting all the Report details
     const getReports = async () => {

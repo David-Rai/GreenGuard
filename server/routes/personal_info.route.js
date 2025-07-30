@@ -1,5 +1,6 @@
 import express from 'express'
 import db from '../model/db_local.js'
+import jwt from 'jsonwebtoken'
 
 export const personalRouter = express.Router()
 
@@ -17,16 +18,4 @@ personalRouter.get('/profile/:username', async (req, res) => {
     }
 
     res.json({ username, result })
-})
-
-
-//Getting all the user Reports
-personalRouter.get('/profile/reports', async (req, res) => {
-    const { username } = req.body
-
-    //Getting from the database
-    const q = 'select * from reports where user_id = ?'
-    const results = await db.execute(q, [username])
-
-    res.json(results)
 })

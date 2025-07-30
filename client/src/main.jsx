@@ -9,6 +9,7 @@ import Home from './components/Home'
 import Signup from './components/auth/Signup'
 import Signin from './components/auth/Signin'
 import Map from './components/Map'
+import { UserProvider } from './socket/UserContext'
 import Profile from './components/Profile'
 import Report from './components/Report'
 import ReportDetails from './components/ReportDetails'
@@ -61,8 +62,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <SocketProvider>
-    <RouterProvider router={router}>
-    </RouterProvider>
+    <UserProvider>
+      <RouterProvider router={router}>
+      </RouterProvider>
+    </UserProvider>
   </SocketProvider>
 
 )

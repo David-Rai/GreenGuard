@@ -1,4 +1,4 @@
-
+import jwt from 'jsonwebtoken'
 import cookie from 'cookie';
 import { Socket } from 'dgram'
 import db from '../model/db_local.js'
@@ -12,7 +12,7 @@ export const handleSocket = (io) => {
         const cookies = cookie.parse(cookieString);
 
         const { token } = cookies
-console.log(token)
+        // console.log(token)
 
         console.log(client.id)
 
@@ -29,21 +29,33 @@ console.log(token)
 
         //Saving the new report
         client.on("new-report", async (data) => {
-            console.log(data)
-            const { contact_number, purpose, description, lat, lng } = data
+            console.log("new report", data)
 
-            //storing the data into the database
-            const q = 'insert into reports (purpose,contact_number,description,lat,lng) values (?,?,?,?,?)'
-            const [results] = await db.execute(q, [purpose, contact_number, description, lat, lng])
+            try {
 
-            console.log(results)
+                //Getting the decoded jwt
+                const Secret_Key = process.env.SECRET
+                const decoded = jwt.verify(token, Secret_Key)
 
-            //reply for sucessfull storing data
-            if (results.affectedRows) {
-                console.log("successfully saved report")
-                client.emit("added-report")
+                const { username } = decoded
+
+
+                const { contact_number, purpose, description, lat, lng } = data
+
+                //storing the data into the database
+                const q = 'insert into reports (purpose,contact_number,description,lat,lng,user_id) values (?,?,?,?,?,?)'
+                const [results] = await db.execute(q, [purpose, contact_number, description, lat, lng, username])
+
+                //reply for sucessfull storing data
+                if (results.affectedRows) {
+                    console.log("successfully saved report")
+                    client.emit("added-report")
+                }
+
             }
-
+            catch (err) {
+                console.log(err)
+            }
         })
     })
 
