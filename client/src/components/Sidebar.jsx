@@ -45,7 +45,7 @@ const Sidebar = ({ handleReport,user }) => {
         </button>
 
         {/* Saved */}
-        <button className="option-button">
+        <button className="option-button" onClick={()=> navigate(`/profile/${user.username}/saved_reports`)}>
           <FaBookmark className="option-icon" />
           <h1 className="hidden md:flex">Saved</h1>
         </button>

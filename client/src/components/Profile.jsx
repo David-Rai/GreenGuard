@@ -39,7 +39,7 @@ const Profile = () => {
   
         {/* User Info Text */}
         <div className="text-center md:text-left space-y-1" style={{ color: '#1E293B' }}>
-          <h2 className="text-xl md:text-2xl font-bold">{username}</h2>
+          <h2 className="text-xl md:text-lg font-bold">{username}</h2>
           <p className="text-sm">Bio: [Add user bio here]</p>
           <p className="text-sm">{userData?.result?.[0]?.email}</p>
         </div>
